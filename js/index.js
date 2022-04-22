@@ -15,5 +15,8 @@ var createScene = function () {
 
   const ground = BABYLON.MeshBuilder.CreateGround("ground", {width:10, height:10});
 
+  const sound = new BABYLON.Sound("name", "url to sound file", scene, null, { loop: true, autoplay: true });
+  sound.play();
+
   return scene;
 };
