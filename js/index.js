@@ -7,5 +7,7 @@ var createScene = function () {
   camera.attachControl(canvas, true);
   const light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(5, 1, 0));
 
+  const ground = BABYLON.MeshBuilder.CreateGround("ground", {width:10, height:10});
+
   return scene;
 };
