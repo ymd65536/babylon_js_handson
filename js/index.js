@@ -27,6 +27,10 @@ const createScene = function (canvas,engine) {
   box3.position.y  = 0.75;
   box3.position.z  = 0;
 
+  // box1を回転させる
+  box1.rotation.y = Math.PI / 4;
+  box1.rotation.y = BABYLON.Tools.ToRadians(45);  
+
   // box を置くための地面を作る
   const ground = BABYLON.MeshBuilder.CreateGround("ground", { width: 10, height: 10 });
 
