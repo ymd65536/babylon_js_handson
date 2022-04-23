@@ -1,5 +1,5 @@
 // createScene に好きなモデルを書く
-const createScene = function (canvas,engine) {
+const createScene = function (canvas, engine) {
 
   // エンジンをかける
   const scene = new BABYLON.Scene(engine);
@@ -15,10 +15,10 @@ const createScene = function (canvas,engine) {
   const box = BABYLON.MeshBuilder.CreateBox("box", {});
   box.position.y = 0.5;
 
-  // 家を建築する
+  // 家を建築する(box に屋根をつける)
   const roof = BABYLON.MeshBuilder.CreateCylinder(
-      "roof", 
-      {diameter: 1.3, height: 1.2, tessellation: 3}
+    "roof",
+    {diameter: 1.3, height: 1.2, tessellation: 3}
   );
   roof.scaling.x = 0.75;
   roof.rotation.z = Math.PI / 2;
@@ -26,8 +26,23 @@ const createScene = function (canvas,engine) {
   box.rotation.y = Math.PI / 4;
   roof.rotation.y = Math.PI / 4;
 
+  // 屋根に色をつける
+  const roofMat = new BABYLON.StandardMaterial("roofMat");
+  roofMat.diffuseTexture = new BABYLON.Texture("https://assets.babylonjs.com/environments/roof.jpg");
+  roof.material = roofMat;
+
+  // 外壁をデザイン
+  const boxMat = new BABYLON.StandardMaterial("boxMat");
+  boxMat.diffuseTexture = new BABYLON.Texture("https://www.babylonjs-playground.com/textures/floor.png")
+  box.material = boxMat
+
   // box を置くための地面を作る
   const ground = BABYLON.MeshBuilder.CreateGround("ground", { width: 10, height: 10 });
+
+  // 草
+  const groundMat = new BABYLON.StandardMaterial("groundMat");
+  groundMat.diffuseColor = new BABYLON.Color3(0, 1, 0)
+  ground.material = groundMat;
 
   return scene;
 };
@@ -41,7 +56,7 @@ function main() {
   const engine = new BABYLON.Engine(canvas);
 
   // createScene を呼ぶ
-  const scene = createScene(canvas,engine);
+  const scene = createScene(canvas, engine);
 
   // シーンを継続的にレンダリングするためにレンダーループに登録する
   engine.runRenderLoop(function () {
