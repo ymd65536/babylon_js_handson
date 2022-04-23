@@ -12,24 +12,19 @@ const createScene = function (canvas,engine) {
   const light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(1, 1, 0));
 
   // ここにモデルを定義する - box1 box2 box3 の Mesh
-  const box1 = BABYLON.MeshBuilder.CreateBox("box1", {width: 2, height: 1.5, depth: 3});
-  box1.position.y = 0.75;
+  const box = BABYLON.MeshBuilder.CreateBox("box", {});
+  box.position.y = 0.5;
 
-  const box2 = BABYLON.MeshBuilder.CreateBox("box2", {});
-  box2.scaling.x = 2;
-  box2.scaling.y = 1.5;
-  box2.scaling.z = 3;
-  box2.position = new BABYLON.Vector3(-3, 0.75, 0);
-
-  const box3 = BABYLON.MeshBuilder.CreateBox("box3", {});
-  box3.scaling = new BABYLON.Vector3(2, 1.5, 3);
-  box3.position.x  = 3;
-  box3.position.y  = 0.75;
-  box3.position.z  = 0;
-
-  // box1を回転させる
-  box1.rotation.y = Math.PI / 4;
-  box1.rotation.y = BABYLON.Tools.ToRadians(45);  
+  // 家を建築する
+  const roof = BABYLON.MeshBuilder.CreateCylinder(
+      "roof", 
+      {diameter: 1.3, height: 1.2, tessellation: 3}
+  );
+  roof.scaling.x = 0.75;
+  roof.rotation.z = Math.PI / 2;
+  roof.position.y = 1.22;
+  box.rotation.y = Math.PI / 4;
+  roof.rotation.y = Math.PI / 4;
 
   // box を置くための地面を作る
   const ground = BABYLON.MeshBuilder.CreateGround("ground", { width: 10, height: 10 });
