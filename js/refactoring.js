@@ -3,7 +3,6 @@ function main() {
   const engine = new BABYLON.Engine(canvas);
   function createScene() {
     const scene = new BABYLON.Scene(engine);
-
     /**** Set camera and light *****/
     const camera = new BABYLON.ArcRotateCamera("camera", -Math.PI / 2, Math.PI / 2.5, 10, new BABYLON.Vector3(0, 0, 0));
     camera.attachControl(canvas, true);
@@ -13,8 +12,12 @@ function main() {
     const box = buildBox();
     const roof = buildRoof();
 
+    // const house = BABYLON.Mesh.MergeMeshes([box, roof], true, false, null, false, true);
+    const house = BABYLON.Mesh.MergeMeshes([box, roof], false, false, null, false, true);
+
     return scene;
   }
+
 
   /******Build Functions***********/
   const buildGround = () => {
@@ -29,7 +32,7 @@ function main() {
 
   const buildBox = () => {
     //texture
-    const boxMat = new BABYLON.StandardMaterial("boxMat");
+    const boxMat = new BABYLON.StandardMaterial("roofMat");
     boxMat.diffuseTexture = new BABYLON.Texture("https://assets.babylonjs.com/environments/cubehouse.png")
 
 
@@ -63,6 +66,7 @@ function main() {
 
     return roof;
   }
+
   const scene = createScene();
 
   engine.runRenderLoop(() => {
