@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Babylon Template</title>
+  <script src="https://cdn.babylonjs.com/babylon.js"></script>
+  <script src="https://cdn.babylonjs.com/loaders/babylonjs.loaders.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="css/web_layout.css" />
+  <style>
+    #holder {
+      width: 80%;
+      height: 100%;
+      float: left;
+    }
+
+    #instructions {
+      width: 20%;
+      height: 100%;
+      float: left;
+      background-color: grey;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="holder">
+    <canvas id="renderCanvas" touch-action="none"></canvas> <!-- touch-action="none" for best results from PEP -->
+  </div>
+  <div id="instructions">
+    <br />
+    <h2>Instructions (説明)</h2>
+    <br />
+    Instructions Instructions Instructions Instructions Instructions
+    Instructions Instructions Instructions Instructions Instructions
+  </div>
+  <script>
+    const canvas = document.getElementById("renderCanvas");
+    const engine = new BABYLON.Engine(canvas, true); // BABYLON 3D エンジン
+
+    const createScene = function () {
+      const scene = new BABYLON.Scene(engine);
+      // ↓ ここでモデルを読み込んでいる
+      BABYLON.SceneLoader.ImportMeshAsync("", "https://assets.babylonjs.com/meshes/", "village.glb");
+      // ↓ カメラとライトの設定
+      const camera = new BABYLON.ArcRotateCamera("camera", -Math.PI / 2, Math.PI / 2.5, 15, new BABYLON.Vector3(0, 0, 0));
+      camera.attachControl(canvas, true);
+      const light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(1, 1, 0));
+      return scene;
+    };
+
+    const scene = createScene();
+    // シーンを継続的にレンダリングするためにレンダーループに登録する
+    engine.runRenderLoop(function () {
+      scene.render();
+    });
+
+    // ブラウザーのリサイズイベントを監視する
+    window.addEventListener("resize", function () {
+      engine.resize();
+    });
+  </script>
+</body>
+
+</html>
