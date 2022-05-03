@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Babylon Template</title>
+  <script src="https://cdn.babylonjs.com/babylon.js"></script>
+  <script src="https://cdn.babylonjs.com/loaders/babylonjs.loaders.min.js"></script>
+  <script src="https://cdn.babylonjs.com/viewer/babylon.viewer.js"></script>
+  <script src="https://code.jquery.com/pep/0.4.3/pep.js"></script>
+  <script src="js/refactoring.js"></script>
+  <link rel="stylesheet" type="text/css" href="css/index.css" />
+</head>
+
+<body>
+  <script>
+    BabylonViewer.viewerManager.getViewerPromiseById('myViewer').then((viewer) => {
+      viewer.onSceneInitObservable.add(() => {
+        viewer.sceneManager.camera.radius = 15; // カメラの半径をセット
+        viewer.sceneManager.camera.beta = Math.PI / 2.2; // 伏角
+      });
+      viewer.onEngineInitObservable.add((scene) => {
+        viewer.loadModel({
+          url: "https://assets.babylonjs.com/meshes/village.glb"
+        });
+      });
+    });
+  </script>
+  <babylon id="myViewer" extends="minimal"></babylon>
+  <!--<babylon extends="minimal" model="https://assets.babylonjs.com/meshes/village.glb"></babylon>-->
+</body>
+
+</html>
